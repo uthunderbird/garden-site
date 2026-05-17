@@ -20,7 +20,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # needed for git-based date detection
+          fetch-depth: 0
+          submodules: true
 
       - uses: actions/setup-node@v4
         with:
