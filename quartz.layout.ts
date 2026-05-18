@@ -6,18 +6,24 @@ export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [],
   afterBody: [
-    Component.Comments({
-      provider: "giscus",
-      options: {
-        repo: "uthunderbird/garden-site",
-        repoId: "R_kgDOSf0Xag",
-        category: "Announcements",
-        categoryId: "DIC_kwDOSf0Xas4C9SW8",
-        mapping: "pathname",
-        strict: false,
-        reactionsEnabled: true,
-        inputPosition: "bottom",
-        loading: "lazy",
+    Component.ConditionalRender({
+      component: Component.Comments({
+        provider: "giscus",
+        options: {
+          repo: "uthunderbird/garden-site",
+          repoId: "R_kgDOSf0Xag",
+          category: "Announcements",
+          categoryId: "DIC_kwDOSf0Xas4C9SW8",
+          mapping: "pathname",
+          strict: false,
+          reactionsEnabled: true,
+          inputPosition: "bottom",
+          loading: "lazy",
+        },
+      }),
+      condition: (page) => {
+        const type = page.fileData.frontmatter?.type
+        return type === "essay" || type === "note" || type === "poem"
       },
     }),
   ],
