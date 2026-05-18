@@ -65,7 +65,15 @@ export const defaultContentPageLayout: PageLayout = {
     Component.Graph(),
     Component.DesktopOnly(Component.TableOfContents()),
     Component.Backlinks(),
-    Component.RecentNotes({ title: "Свежее", limit: 5, showTags: false }),
+    Component.RecentNotes({
+          title: "Свежее",
+          limit: 5,
+          showTags: false,
+          filter: (f) => {
+            const type = f.frontmatter?.type
+            return type === "essay" || type === "note" || type === "poem"
+          },
+        }),
   ],
 }
 
