@@ -16,7 +16,7 @@ const config: QuartzConfig = {
       provider: "plausible",
     },
     locale: "ru-RU",
-    baseUrl: "uthunderbird.github.io/garden-site",
+    baseUrl: "dus.garden",
     ignorePatterns: ["private", "templates", ".obsidian", "drafts"],
     defaultDateType: "modified",
     theme: {
