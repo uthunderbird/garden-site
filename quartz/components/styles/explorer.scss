@@ -228,6 +228,11 @@ li:has(> .folder-outer:not(.open)) > .folder-container > svg {
       & > .explorer-content {
         transform: translateX(-100vw);
         visibility: hidden;
+
+        // Open folders set their own visibility; hide them with the mobile drawer.
+        & * {
+          visibility: hidden;
+        }
       }
     }
 

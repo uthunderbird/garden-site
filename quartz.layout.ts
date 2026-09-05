@@ -1,5 +1,23 @@
 import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
+import { Options as ExplorerOptions } from "./quartz/components/Explorer"
+
+const explorerOptions: Partial<ExplorerOptions> = {
+  mapFn: (node) => {
+    // Explorer serializes this function: keep the labels inside it.
+    // Override only the menu label, preserving the article title and URL.
+    const titles: Record<string, string> = {
+      "evergreen/agency-without-mind": "Агентность и разум",
+      "evergreen/log-more-rationale-wont-help": "Кто здесь принимает решение",
+      "evergreen/censorship": "Цензура и кровь",
+      "evergreen/freedom": "Пространство свободы",
+      "evergreen/storypoints": "Сложность и сторипоинты",
+      "evergreen/life-is-strange": "Life is Strange: идеология",
+    }
+    const title = titles[node.slug]
+    if (title) node.displayName = title
+  },
+}
 
 // components shared across all pages
 export const sharedPageComponents: SharedLayout = {
@@ -59,21 +77,21 @@ export const defaultContentPageLayout: PageLayout = {
         { Component: Component.ReaderMode() },
       ],
     }),
-    Component.Explorer(),
+    Component.Explorer(explorerOptions),
   ],
   right: [
     Component.Graph(),
     Component.DesktopOnly(Component.TableOfContents()),
     Component.Backlinks(),
     Component.RecentNotes({
-          title: "Свежее",
-          limit: 5,
-          showTags: false,
-          filter: (f) => {
-            const type = f.frontmatter?.type
-            return type === "essay" || type === "note" || type === "poem"
-          },
-        }),
+      title: "Свежее",
+      limit: 5,
+      showTags: false,
+      filter: (f) => {
+        const type = f.frontmatter?.type
+        return type === "essay" || type === "note" || type === "poem"
+      },
+    }),
   ],
 }
 
@@ -92,7 +110,7 @@ export const defaultListPageLayout: PageLayout = {
         { Component: Component.Darkmode() },
       ],
     }),
-    Component.Explorer(),
+    Component.Explorer(explorerOptions),
   ],
   right: [],
 }
